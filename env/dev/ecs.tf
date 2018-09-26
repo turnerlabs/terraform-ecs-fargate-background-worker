@@ -54,18 +54,8 @@ resource "aws_ecs_task_definition" "app" {
     "name": "${var.container_name}",
     "image": "${var.default_backend_image}",
     "essential": true,
-    "portMappings": [
-      {
-        "protocol": "tcp",
-        "containerPort": ${var.container_port},
-        "hostPort": ${var.container_port}
-      }
-    ],
+
     "environment": [
-      {
-        "name": "PORT",
-        "value": "${var.container_port}"
-      },
       {
         "name": "ENABLE_LOGGING",
         "value": "false"
