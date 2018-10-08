@@ -12,7 +12,7 @@
  * migrated the real application containers to the task definition.
  */
 
- # How many containers to run
+# How many containers to run
 variable "replicas" {
   default = "1"
 }
