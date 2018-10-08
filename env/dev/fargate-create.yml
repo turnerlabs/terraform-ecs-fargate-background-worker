@@ -5,7 +5,7 @@
 prompts:
 
   - question: "Would you like performance-based auto-scaling?"
-    default: "yes"
+    default: "no"
     filesToDeleteIfNo:
       - "autoscale-perf.tf"
 
