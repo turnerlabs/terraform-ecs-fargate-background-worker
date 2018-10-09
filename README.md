@@ -1,6 +1,6 @@
-# Terraform ECS Fargate
+# Terraform ECS Fargate Background Worker
 
-A set of Terraform templates used for provisioning web application stacks on [AWS ECS Fargate][fargate].
+A set of Terraform templates used for provisioning a background worker stack on [AWS ECS Fargate][fargate].  This template is similar to the [web app template](https://github.com/turnerlabs/terraform-ecs-fargate) but without the ALB.  This means that you get an ECS service without ingress.
 
 The templates are designed to be customized.  The optional components can be removed by simply deleting the `.tf` file.
 
@@ -28,16 +28,14 @@ that is needed.
 |------|-------------|:----:|
 | [main.tf][edm] | Terrform remote state, AWS provider, output |  |
 | [ecs.tf][ede] | ECS Cluster, Service, Task Definition, ecsTaskExecutionRole, CloudWatch Log Group |  |
-| [lb.tf][edl] | ALB, Target Group, S3 bucket for access logs  |  |
 | [nsg.tf][edn] | NSG for ALB and Task |  |
-| [lb-http.tf][edlhttp] | HTTP listener, NSG rule. Delete if HTTPS only | Yes |
-| [lb-https.tf][edlhttps] | HTTPS listener, NSG rule. Delete if HTTP only | Yes |
 | [dashboard.tf][edd] | CloudWatch dashboard: CPU, memory, and HTTP-related metrics | Yes |
 | [role.tf][edr] | Application Role for container | Yes |
 | [cicd.tf][edc] | IAM user that can be used by CI/CD systems | Yes |
 | [autoscale-perf.tf][edap] | Performance-based auto scaling | Yes |
 | [autoscale-time.tf][edat] | Time-based auto scaling | Yes |
 | [logs-logzio.tf][edll] | Ship container logs to logz.io | Yes |
+| [secretsmanager.tf][sm] | Provision a Secrets Manager secret for your app | Yes |
 
 
 ## Usage
@@ -80,15 +78,13 @@ $ terraform apply
 [be]: ./base/ecr.tf
 [edm]: ./env/dev/main.tf
 [ede]: ./env/dev/ecs.tf
-[edl]: ./env/dev/lb.tf
 [edn]: ./env/dev/nsg.tf
-[edlhttp]: ./env/dev/lb-http.tf
-[edlhttps]: ./env/dev/lb-https.tf
 [edd]: ./env/dev/dashboard.tf
 [edr]: ./env/dev/role.tf
 [edc]: ./env/dev/cicd.tf
 [edap]: ./env/dev/autoscale-perf.tf
 [edat]: ./env/dev/autoscale-time.tf
 [edll]: ./env/dev/logs-logzio.tf
+[sm]: ./env/dev/secretsmanager.tf
 [base]: ./base/README.md
 [env-dev]: ./env/dev/README.md
