@@ -31,7 +31,7 @@ that is needed.
 | [main.tf][edm] | Terrform remote state, AWS provider, output |  |
 | [ecs.tf][ede] | ECS Cluster, Service, Task Definition, ecsTaskExecutionRole, CloudWatch Log Group |  |
 | [nsg.tf][edn] | NSG for ALB and Task |  |
-| [dashboard.tf][edd] | CloudWatch dashboard: CPU, memory, and HTTP-related metrics | Yes |
+| [dashboard.tf][edd] | CloudWatch dashboard: CPU, memory metrics | Yes |
 | [role.tf][edr] | Application Role for container | Yes |
 | [cicd.tf][edc] | IAM user that can be used by CI/CD systems | Yes |
 | [autoscale-perf.tf][edap] | Performance-based auto scaling | Yes |
@@ -63,6 +63,41 @@ $ terraform init
 
 # Executes the Terraform run
 $ terraform apply
+```
+
+## fargate-create
+
+Alternatively you can use the [fargate-create CLI](https://github.com/turnerlabs/fargate-create) to scaffold new projects based on this template.
+
+install
+```shell
+curl -s get-fargate-create.turnerlabs.io | sh
+```
+
+create an input vars file (`terraform.tfvars`)
+```hcl
+# app/env to scaffold
+app = "my-app"
+environment = "dev"
+
+replicas = "1"
+region = "us-east-1"
+aws_profile = "default"
+saml_role = "admin"
+vpc = "vpc-123"
+private_subnets = "subnet-123,subnet-456"
+public_subnets = "subnet-789,subnet-012"
+tags = {
+  application   = "my-app"
+  environment   = "dev"
+  team          = "my-team"
+  customer      = "my-customer"
+  contact-email = "me@example.com"
+}
+```
+
+```shell
+$ fargate-create -t git@github.com:turnerlabs/terraform-ecs-fargate-background-worker
 ```
 
 
