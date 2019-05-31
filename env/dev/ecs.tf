@@ -102,6 +102,8 @@ resource "aws_ecs_task_definition" "app" {
   }
 ]
 DEFINITION
+
+  tags = "${var.tags}"
 }
 
 resource "aws_ecs_service" "app" {
@@ -115,6 +117,10 @@ resource "aws_ecs_service" "app" {
     security_groups = ["${aws_security_group.nsg_task.id}"]
     subnets         = ["${split(",", var.private_subnets)}"]
   }
+
+  tags                    = "${var.tags}"
+  enable_ecs_managed_tags = true
+  propagate_tags          = "SERVICE"
 
   # [after initial apply] don't override changes made to task_definition
   # from outside of terrraform (i.e.; fargate cli)
