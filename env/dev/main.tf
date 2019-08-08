@@ -1,4 +1,6 @@
 terraform {
+  required_version = ">= 0.12"
+  
   backend "s3" {
     region  = "us-east-1"
     profile = ""
@@ -8,12 +10,13 @@ terraform {
 }
 
 # The AWS Profile to use
-variable "aws_profile" {}
+variable "aws_profile" {
+}
 
 provider "aws" {
   version = ">= 1.53.0"
-  region  = "${var.region}"
-  profile = "${var.aws_profile}"
+  region  = var.region
+  profile = var.aws_profile
 }
 
 # output
@@ -40,5 +43,6 @@ output "scale_out" {
 
 # Command to set the AWS_PROFILE
 output "aws_profile" {
-  value = "${var.aws_profile}"
+  value = var.aws_profile
 }
+
