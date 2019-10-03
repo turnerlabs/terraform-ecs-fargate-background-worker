@@ -18,6 +18,7 @@ The optional components can be removed by simply deleting the `.tf` file.
 | [autoscale-time.tf][edat] | Time-based auto scaling | Yes |
 | [logs-logzio.tf][edll] | Ship container logs to logz.io | Yes |
 | [secretsmanager.tf][sm] | Provision a Secrets Manager secret for your app | Yes |
+| [ssm-parameters.tf][ssm] | Add a CMK KMS key for use with SSM Parameter Store. Also gives ECS task definition role access to read secrets from parameter store. | Yes |
 
 
 ## Usage
